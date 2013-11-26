@@ -49,9 +49,9 @@ object ClearParser {
   def graphFromTree(tree: DEPTree, tokens: Seq[Token]): DependencyGraph = {
     val nodeMap = (for ((node, i) <- tree.iterator.asScala.zipWithIndex) yield {
       if (i == 0) node.id -> new DependencyNode(-1, node.form)
-      else node.id -> new DependencyNode(-1, node.form)
+      else node.id -> new DependencyNode(i, node.form)
     }).toMap
-
+    
     val deps = for {
       sourceNode <- tree.iterator.asScala.toList
       if sourceNode.hasHead
